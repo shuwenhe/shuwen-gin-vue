@@ -8,7 +8,7 @@ import (
 func Run() {
 	r := gin.Default()
 
-	r.GET("/api/user/register", controller.Register)
+	r.POST("/api/user/register", controller.Register)
 
 	r.Run()
 }
