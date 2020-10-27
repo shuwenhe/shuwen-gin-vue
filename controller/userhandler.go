@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"log"
 	"math/rand"
 	"net/http"
 	"time"
@@ -33,10 +32,7 @@ func Register(ctx *gin.Context) {
 
 	if len(name) == 0 {
 		name = RandomString(10)
-		return
 	}
-
-	log.Println(name, password, phone)
 
 	if dao.IsPhoneExist(phone) {
 		ctx.JSON(http.StatusUnprocessableEntity, gin.H{"code": 422, "msg": "User exist!"})
@@ -55,7 +51,7 @@ func Register(ctx *gin.Context) {
 	})
 }
 
-func RandomString(n int) string { // HPkPlzdLUX
+func RandomString(n int) string {
 	var letters = []byte("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 	result := make([]byte, n)
 	rand.Seed(time.Now().Unix())
