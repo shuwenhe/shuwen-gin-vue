@@ -46,6 +46,8 @@ func Execute() error {
 
 		db.DB.AutoMigrate(&model.User{})
 
+		defer db.DB.Close()
+
 		r := router.SetupRouter()
 		r.Run()
 

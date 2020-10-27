@@ -1,12 +1,11 @@
 package controller
 
 import (
-	"math/rand"
 	"net/http"
-	"time"
 
 	"github.com/shuwenhe/shuwen-gin-vue/dao"
 	"github.com/shuwenhe/shuwen-gin-vue/db"
+	"github.com/shuwenhe/shuwen-gin-vue/util"
 
 	"github.com/gin-gonic/gin"
 	"github.com/shuwenhe/shuwen-gin-vue/model"
@@ -31,7 +30,7 @@ func Register(ctx *gin.Context) {
 	}
 
 	if len(name) == 0 {
-		name = RandomString(10)
+		name = util.RandomString(10)
 	}
 
 	if dao.IsPhoneExist(phone) {
@@ -49,14 +48,4 @@ func Register(ctx *gin.Context) {
 	ctx.JSON(200, gin.H{
 		"msg": "Register success!",
 	})
-}
-
-func RandomString(n int) string {
-	var letters = []byte("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-	result := make([]byte, n)
-	rand.Seed(time.Now().Unix())
-	for k := range result {
-		result[k] = letters[rand.Intn(len(letters))]
-	}
-	return string(result)
 }
