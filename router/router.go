@@ -5,10 +5,13 @@ import (
 	"github.com/shuwenhe/shuwen-gin-vue/controller"
 )
 
-func Run() {
+func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
-	r.POST("/api/user/register", controller.Register)
+	api := r.Group("v1")
+	{
+		api.POST("/user/register", controller.Register)
+	}
 
-	r.Run()
+	return r
 }
