@@ -1,11 +1,5 @@
 # shuwen-gin-vue
 
-# POSTMAN API INTERFACE
-
-https://documenter.getpostman.com/view/7200207/TVRrUjPE#22bc262f-59ec-4f6c-9e08-a9c26dbe937c
-
-# VIDEO
-
 # 腾讯课堂
 
 https://shuwenedu.ke.qq.com/?tuin=268120fb#tab=1&category=-1
