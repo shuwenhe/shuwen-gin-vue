@@ -4,6 +4,10 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/shuwenhe/shuwen-gin-vue/response"
+
+	"github.com/shuwenhe/shuwen-gin-vue/dto"
+
 	"github.com/shuwenhe/shuwen-gin-vue/common"
 	"github.com/shuwenhe/shuwen-gin-vue/dao"
 	"github.com/shuwenhe/shuwen-gin-vue/db"
@@ -19,26 +23,23 @@ func Register(ctx *gin.Context) {
 	password := ctx.PostForm("password")
 	phone := ctx.PostForm("phone")
 	if len(phone) != 11 {
-		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
-			"code": 422,
-			"msg":  "The phone num must be 11 digits!",
-		})
+		response.Response(ctx, http.StatusUnprocessableEntity, 422, nil, "The phone num must be 11 digits!")
 		return
 	}
 	if len(password) < 6 {
-		ctx.JSON(http.StatusUnprocessableEntity, gin.H{"code": 422, "msg": "Password cannot be less than 6 digits!"})
+		response.Response(ctx, http.StatusUnprocessableEntity, 422, nil, "Password not less 6 digits!")
 		return
 	}
 	if len(name) == 0 {
 		name = util.RandomString(10)
 	}
 	if dao.IsPhoneExist(phone) {
-		ctx.JSON(http.StatusUnprocessableEntity, gin.H{"code": 422, "msg": "User exist!"})
+		response.Response(ctx, http.StatusUnprocessableEntity, 422, nil, "User exisit!")
 		return
 	}
 	hasedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost) // 创建用户的时候要加密用户的密码
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"code": 500, "msg": "加密错误"})
+		response.Response(ctx, http.StatusInternalServerError, 500, nil, "Hased password error!")
 		return
 	}
 	user := model.User{
@@ -47,10 +48,7 @@ func Register(ctx *gin.Context) {
 		Phone:    phone,
 	}
 	db.DB.Create(&user)
-	ctx.JSON(200, gin.H{
-		"code": 200,
-		"msg":  "Register success!",
-	})
+	response.Succces(ctx, nil, "Register success!")
 }
 
 func Login(ctx *gin.Context) {
@@ -87,14 +85,10 @@ func Login(ctx *gin.Context) {
 		log.Printf("token generate error:%v", err)
 		return
 	}
-	ctx.JSON(200, gin.H{ // Return result
-		"code": 200,
-		"data": gin.H{"token": token},
-		"msg":  "Login success!",
-	})
+	response.Succces(ctx, gin.H{"token": token}, "Login success!")
 }
 
 func Info(ctx *gin.Context) {
 	user, _ := ctx.Get("user")
-	ctx.JSON(http.StatusOK, gin.H{"code": 200, "data": gin.H{"user": user}})
+	ctx.JSON(http.StatusOK, gin.H{"code": 200, "data": gin.H{"user": dto.ToUserDto(user.(model.User))}})
 }

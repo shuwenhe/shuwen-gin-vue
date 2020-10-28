@@ -15,6 +15,5 @@ func SetupRouter() *gin.Engine {
 		api.POST("/user/login", controller.Login)
 		api.GET("/user/info", middleware.AuthMiddleware(), controller.Info)
 	}
-
 	return r
 }
