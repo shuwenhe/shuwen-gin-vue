@@ -1,7 +1,8 @@
+server:
+  port: ":8080"
 db:
   hostname: 62.234.11.179
   port: 3306
   username: shuwen-gin-vue
   password: Shuwen-gin-vue.com@_00..
   dbname: shuwen-gin-vue
-addr: ":8080"

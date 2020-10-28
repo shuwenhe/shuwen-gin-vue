@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"log"
 	"net/http"
 	"os"
 
@@ -51,7 +52,9 @@ func Execute() error {
 		r := router.SetupRouter()
 		r.Run()
 
-		return http.ListenAndServe(viper.GetString("addr"), nil) // listen and serve
+		port := viper.GetString("port")
+		log.Println("port = *** =", port)
+		return http.ListenAndServe(port, nil) // listen and serve
 	}
 
 	return rootCmd.Execute()
