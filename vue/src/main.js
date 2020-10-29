@@ -1,21 +1,14 @@
 import Vue from "vue"
+import { BootstrapVue, IconsPlugin } from "bootstrap-vue"
 import App from "./App.vue"
 import router from "./router"
 // import store from "./store"
+import "./assets/scss/index.scss"
 
 Vue.config.productionTip = false
-
-const name = "Richard"
-    // name = "Ritchie";
-
-function sayHello(who) {
-    console.log(`hello${who}`)
-}
-
-sayHello(name)
-
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 new Vue({
     router,
-    // aiaiiistore,
     render: h => h(App),
 }).$mount("#app")
