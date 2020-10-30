@@ -10,7 +10,6 @@
   "dependencies": {
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.18.1",
-    "core-js": "^3.6.5",
     "vue": "^2.6.12",
     "vue-router": "^3.2.0",
     "vuedraggable": "^2.24.3",
@@ -24,6 +23,7 @@
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-airbnb": "^5.0.2",
     "babel-eslint": "^10.1.0",
+    "core-js": "^3.6.5",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^6.2.2",

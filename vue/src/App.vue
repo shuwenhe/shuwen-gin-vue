@@ -1,18 +1,19 @@
 <template>
   <div id="app">
-    <b-container>
       <navbar/>
-    </b-container>
+      <b-container>
+        <router-view/>
+      </b-container>
   </div>
 </template>
 
 <script>
-import { component } from 'vuedraggable'
 import Navbar from "./views/layout/Navbar.vue"
 
 export default {
-  data(){
-    component:{Navbar} // 声明组件
+  components: { Navbar }, // 声明组件
+  data() {
+    return {};
   },
 }
 </script>

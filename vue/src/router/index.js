@@ -1,4 +1,4 @@
-import { LayoutPlugin } from 'bootstrap-vue';
+// import { LayoutPlugin } from 'bootstrap-vue';
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue';
@@ -14,19 +14,16 @@ const routes = [
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
   {
     path: '/register',
-    name: 'Register',
-    component: () => import("../views/register/Register.vue"), // 路由惰性加载、异步回调
+    name: 'register',
+    component: () => import("../views/register/Register.vue"), // lazy-loaded、异步回调
   },
   {
     path: "/login",
-    name: "Login",
+    name: "login",
     component: () => import("../views/login/Login.vue"),
   },
 ];
