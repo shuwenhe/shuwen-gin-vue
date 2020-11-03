@@ -10,31 +10,31 @@
     <b-form>
       <b-form-group label="Name">
         <b-form-input
-          v-model="user.name"
+          v-model="$v.user.name.$model"
           type="text"
           placeholder="Input your name"
         ></b-form-input>
       </b-form-group>
       <b-form-group label="Phone">
         <b-form-input
-          v-model="user.phone"
+          v-model="$v.user.phone.$model"
           type="number"
           placeholder="Input your phone"
+          :state="validateState('phone')"
         ></b-form-input>
-         <b-form-text
-         id="password-help-block"
-         text-variant="danger"
-         v-if="showPhone"
-         >
-           phone num must 11 digits!
-         </b-form-text>
+        <b-form-invalid-feedback :state="validateState('phone')">
+          Mobile phone number does not meet the requirements!
+        </b-form-invalid-feedback>
       </b-form-group>
       <b-form-group label="Password">
         <b-form-input
-          v-model="user.password"
+          v-model="$v.user.password.$model"
           type="password"
           placeholder="Input your password"
         ></b-form-input>
+        <b-form-invalid-feedback :state="validateState('password')">
+          Password must be greater than or equal to 6 digits!
+        </b-form-invalid-feedback>
         </b-form-group>
         <b-form-group>
         <b-button
@@ -49,6 +49,9 @@
 </template>
 
 <script>
+import { required, minLength } from 'vuelidate/lib/validators'
+import customValidator from "@/helper/validator"
+
 export default {
   data() {
    return {
@@ -57,15 +60,36 @@ export default {
       phone: "",
       password: "",
     },
-    showPhone: false,
-   }
+    validation: null,
+   };
+  },
+    validations: {
+    user: {
+      name: {
+
+      },
+      phone: {
+      required,
+      phone: customValidator.phoneValidator,
+      },
+    password: {
+      required,
+      minLength: minLength(6),
+    },
+    },
   },
   methods: {
+    validateState(name) {
+      const { $dirty, $error } = this.$v.user[name] // es6解构赋值
+      return $dirty ? !$error : null
+    },
     register() {
-      if (user.phone.length != 11) {
-        this.showPhone = true
-        return
-      }
+      const api = "http://127.0.0.1:8080/v1/user/register"
+      this.axios.post(api, { ...this.user }).then(res => {
+        console.log(res.data)// save token
+      }).catch((err) => { // Go to index
+        console.log("err:", err.response.data.msg)
+      })
       console.log("register")
     },
   },

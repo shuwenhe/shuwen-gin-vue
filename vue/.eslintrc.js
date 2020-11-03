@@ -12,8 +12,8 @@ module.exports = {
     },
     rules: {
         'indent': ['off', 4],
-        "quotes": ["warn", "double"],
-        "semi": ["warn", "never"],
+        "quotes": ["off", "double"],
+        "semi": ["off", "never"],
         'arrow-parens': 'off',
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
